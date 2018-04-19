@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-int Fun4All_G4_sPHENIX_py8jet(
+int Fun4All_G4_sPHENIX_py8gammajet(
     const int nEvents = 1,
     const char *inputFile = "/sphenix/data/data02/review_2017-08-02/single_particle/spacal2d/fieldmap/G4Hits_sPHENIX_e-_eta0_8GeV-0002.root",
     const char *outputFile = "G4sPHENIX.root",
@@ -188,11 +188,19 @@ int Fun4All_G4_sPHENIX_py8jet(
       //// Trigger setup
       PHPy8JetTrigger *jettrig = new PHPy8JetTrigger();
       jettrig->SetEtaHighLow(0.6, -0.6);
-      //jettrig->SetMinJetPt(5.0); //gammajet
-      jettrig->SetMinJetPt(15.0); //dijet
-      jettrig->PrintConfig();
+      jettrig->SetMinJetPt(5.0); //gammajet
+      //jettrig->SetMinJetPt(15.0); //dijet
+      jettrig->PrintConfig(); 
       pythia8->register_trigger( jettrig );
-      
+/*
+      PHPy8ParticleTrigger *ptrig = new PHPy8ParticleTrigger();
+      ptrig->AddParticles(22);
+      ptrig->SetPtLow(10);
+      ptrig->SetEtaHigh(1);
+      ptrig->SetEtaLow(-1);
+      ptrig->PrintConfig();
+      pythia8->register_trigger(ptrig);
+*/
       pythia8->Verbosity(1);
 
       se->registerSubsystem(pythia8);
